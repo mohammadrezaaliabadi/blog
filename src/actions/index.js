@@ -4,6 +4,7 @@ import {
   API_KEY,
   CREATE_POST,
   FETCH_POST,
+  DELETE_POST,
 } from "../constants";
 import axios from "axios";
 export function fetchPosts() {
@@ -30,5 +31,15 @@ export function fetchPost(id) {
   return {
     type: FETCH_POST,
     payload: request,
+  };
+}
+
+export function deletePost(id, callback) {
+  const request = axios
+    .delete(`${ROOT_URL}/posts/${id}/${API_KEY}`)
+    .then(() => callback());
+  return {
+    type: DELETE_POST,
+    payload: id,
   };
 }
